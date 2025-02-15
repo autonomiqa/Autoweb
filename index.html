@@ -14,6 +14,9 @@
         <label for="email">Correo electrónico:</label>
         <input type="email" id="email" name="email" required><br><br>
         
+        <label for="email">Si quieres recibir un mensaje por Telegram, déjame tu número:</label>
+        <input type="email" id="telegram" name="email" required><br><br>
+
         <label for="message">Cuéntame sobre tu trabajo:</label>
         <textarea id="message" name="message" required></textarea><br><br>
         
@@ -41,6 +44,11 @@
                 body: JSON.stringify(formData)
             })
             .then(response => response.json())
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud');
+                }
+                return response.json();
+            })
             .then(data => {
                 // Mostrar la respuesta generada por ChatGPT
                 document.getElementById('response').innerText = `
