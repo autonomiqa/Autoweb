@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Contacto</title>
+    <title>Mini asistente Autonomiqa</title>
 </head>
 <body>
-    <h1>Formulario de Contacto</h1>
+    <h1>Mini asistente Autonomiqa</h1>
     <form id="contactForm">
         <label for="name">Nombre:</label>
         <input type="text" id="name" name="name" required><br><br>
@@ -14,7 +14,7 @@
         <label for="email">Correo electrónico:</label>
         <input type="email" id="email" name="email" required><br><br>
         
-        <label for="message">Mensaje:</label>
+        <label for="message">Cuéntame sobre tu trabajo:</label>
         <textarea id="message" name="message" required></textarea><br><br>
         
         <button type="submit">Enviar</button>
@@ -33,7 +33,7 @@
             };
 
             // Enviar datos a Make.com
-            fetch('URL_DE_TU_WEBHOOK_MAKE', {
+            fetch('https://hook.us2.make.com/rpqqtacdrolnc7jz65jujmi2t7lkgqkw', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -42,10 +42,16 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('response').innerText = data.response;
+                // Mostrar la respuesta generada por ChatGPT
+                document.getElementById('response').innerText = `
+                    <h2>Gracias, ${formData.name}!</h2>
+                    <p>${data.analysis}</p>
+                    <p>Nos pondremos en contacto contigo para conversar sobre automatizaciones.</p>
+                `;
             })
             .catch(error => {
                 console.error('Error:', error);
+                document.getElementById('response').innerText = 'Hubo un error al procesar tu solicitud.';
             });
         });
     </script>
