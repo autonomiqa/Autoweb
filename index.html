@@ -86,6 +86,11 @@
 <body>
     <div class="container">
         <h1>Mini asistente Autonomiqa v1.4.2</h1>
+        <div class="intro">
+            <p>¡Hola! Soy Autoweb, un asistente que te dará una sugerencia de qué puedes automatizar en tu trabajo. Si me das suficiente información, podré darte una sugerencia más precisa.</p>
+            <p><strong>No te preocupes:</strong> Tus datos personales no serán revelados ni compartidos con terceros.</p>
+        </div>
+
         <form id="contactForm">
             <input type="text" id="name" name="name" placeholder="Nombre" required><br><br>
             <input type="email" id="email" name="email" placeholder="Correo electrónico" required><br><br>
@@ -103,6 +108,7 @@
             event.preventDefault();
         
             // Ocultar el formulario y mostrar "Pensando..."
+            document.getElementById('intro').style.display = 'none';
             document.getElementById('contactForm').style.display = 'none';
             document.getElementById('loading').style.display = 'block';
             
