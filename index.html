@@ -87,13 +87,10 @@
     <div class="container">
         <h1>Mini asistente Autonomiqa v1.4</h1>
         <form id="contactForm">
-            <label for="name">Nombre:</label>
             <input type="text" id="name" name="name" placeholder="Nombre" required><br><br>
-            <label for="email">Correo electrónico:</label>
             <input type="email" id="email" name="email" placeholder="Correo electrónico" required><br><br>
-            <label for="telegram">Si quieres recibir un mensaje por Telegram, déjame tu número:</label>
+            <label for="telegram">Si quieres recibir un mensaje por Telegram, déjame tu número</label>
             <input type="text" id="telegram" name="telegram" placeholder="Número de Telegram (opcional)">
-            <label for="message">Cuéntame sobre tu trabajo:</label>
             <textarea id="message" name="message" placeholder="Cuéntame sobre tu trabajo" required></textarea>
             <button type="submit">Enviar</button>
         </form>
@@ -108,7 +105,6 @@
             // Ocultar el formulario y mostrar "Pensando..."
             document.getElementById('contactForm').style.display = 'none';
             document.getElementById('loading').style.display = 'block';
-            
             
             const formData = {
                 name: document.getElementById('name').value,
