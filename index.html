@@ -48,7 +48,7 @@
                 if (!response.ok) {
                     throw new Error('Error en la solicitud');
                 }
-                return response.json();
+                return response.json(); // Convertir la respuesta a JSON
             })
             .then(data => {
                 // Mostrar la respuesta generada por ChatGPT
