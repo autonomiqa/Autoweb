@@ -51,6 +51,7 @@
                 return response.json(); // Convertir la respuesta a JSON
             })
             .then(data => {
+                console.log(data); // Inspeccionar la respuesta
                 // Mostrar la respuesta generada por ChatGPT
                 document.getElementById('response').innerHTML = `
                     <h2>Gracias, ${formData.name}!</h2>
