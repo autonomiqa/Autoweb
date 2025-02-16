@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini asistente Autoweb - Autonomiqa</title>
+
     <style>
         /* Estilos generales */
         body {
@@ -32,6 +33,12 @@
         h1 {
             font-size: 2rem;
             color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            color: #555;
             margin-bottom: 1.5rem;
         }
 
@@ -82,12 +89,21 @@
             color: #333;
             margin-top: 1.5rem;
         }
+
+        /* Mensajes de error */
+        .error-message {
+            color: #ff0000;
+            font-size: 0.875rem;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Mini asistente Autoweb</h1>
-        <h4>Autonomiqa v1.4.4</h4>
+        <h4>Autonomiqa, v1.4.5</h4>
         <div class="intro" id="intro">
             <p>¡Hola! Soy Autoweb, un asistente que te dará una sugerencia de qué puedes automatizar en tu trabajo. Si me das suficiente información, podré darte una sugerencia más precisa.</p>
             <p><strong>No te preocupes:</strong> Tus datos personales no serán revelados ni compartidos con terceros.</p>
@@ -95,10 +111,14 @@
 
         <form id="contactForm">
             <input type="text" id="name" name="name" placeholder="Nombre" required><br><br>
-            <input type="email" id="email" name="email" placeholder="Correo electrónico" required><br><br>
-            <textarea id="message" name="message" placeholder="Cuéntame sobre tu trabajo" required></textarea>
+            <input type="email" id="email" name="email" placeholder="Correo electrónico" required><br>
+            <div class="error-message" id="email-error"></div>
+            <input type="tel" id="phone" name="phone" placeholder="Teléfono móvil de contacto (opcional)"><br><br>
+            <textarea id="message" name="message" placeholder="Cuéntame sobre tu trabajo (mínimo 70 caracteres)" required minlength="70"></textarea>
+            <div class="error-message" id="message-error"></div>
             <button type="submit">Enviar</button>
         </form>
+
         <div class="loading" id="loading">Pensando...</div>
         <div class="response" id="response"></div>
     </div>
@@ -107,6 +127,25 @@
         document.getElementById('contactForm').addEventListener('submit', function(event) {
             event.preventDefault();
         
+            // Limpiar mensajes de error
+            document.getElementById('email-error').innerText = '';
+            document.getElementById('message-error').innerText = '';
+
+            // Validar correo electrónico
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('email-error').innerText = 'Por favor, introduce un correo electrónico válido.';
+                return;
+            }
+
+            // Validar longitud del mensaje
+            const message = document.getElementById('message').value;
+            if (message.length < 50) {
+                document.getElementById('message-error').innerText = 'El mensaje debe tener al menos 50 caracteres.';
+                return;
+            }
+
             // Ocultar el formulario y mostrar "Pensando..."
             document.getElementById('intro').style.display = 'none';
             document.getElementById('contactForm').style.display = 'none';
@@ -114,8 +153,9 @@
             
             const formData = {
                 name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                message: document.getElementById('message').value
+                email: email,
+                phone: document.getElementById('phone').value,
+                message: message
             };
 
             // Enviar datos a Make.com
@@ -133,10 +173,9 @@
                 return response.json(); // Convertir la respuesta a JSON
             })
 
+
             .then(data => {
                 console.log(data); // Inspeccionar la respuesta
-                // Reemplazar "\\n" con saltos de línea reales en HTML
-                const analysisWithLineBreaks = data.analysis.replace(/\\n/g, '<br>');
                 // Ocultar "Pensando..." y mostrar la respuesta
                 document.getElementById('loading').style.display = 'none';
                 // Mostrar la respuesta generada por ChatGPT
