@@ -4,30 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini asistente Autonomiqa</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Contenedor del formulario */
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Título */
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Campos de entrada */
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ff8c42;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #fff3e6;
+            outline: none;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #ff6f00;
+        }
+
+        /* Botón */
+        button {
+            background-color: #ff8c42;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff6f00;
+        }
+
+        /* Pantalla de "Pensando..." */
+        .loading {
+            display: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        /* Respuesta */
+        .response {
+            display: none;
+            font-size: 1.25rem;
+            color: #333;
+            margin-top: 1.5rem;
+        }
+    </style>
 </head>
 <body>
-    <h1>Mini asistente Autonomiqa v1.3</h1>
-    <form id="contactForm">
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" name="name" required><br><br>
-        
-        <label for="email">Correo electrónico:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <label for="telegram">Si quieres recibir un mensaje por Telegram, déjame tu número:</label>
-        <input type="text" id="telegram" name="telegram" required><br><br>
-
-        <label for="message">Cuéntame sobre tu trabajo:</label>
-        <textarea id="message" name="message" required></textarea><br><br>
-        
-        <button type="submit">Enviar</button>
-    </form>
-
-    <div id="response"></div>
-
+    <div class="container">
+        <h1>Mini asistente Autonomiqa v1.4</h1>
+        <form id="contactForm">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" placeholder="Nombre" required><br><br>
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" placeholder="Correo electrónico" required><br><br>
+            <label for="telegram">Si quieres recibir un mensaje por Telegram, déjame tu número:</label>
+            <input type="text" id="telegram" name="telegram" placeholder="Número de Telegram (opcional)">
+            <label for="message">Cuéntame sobre tu trabajo:</label>
+            <textarea id="message" name="message" placeholder="Cuéntame sobre tu trabajo" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+        <div class="loading" id="loading">Pensando...</div>
+        <div class="response" id="response"></div>
+    </div>
+    
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(event) {
             event.preventDefault();
+        
+            // Ocultar el formulario y mostrar "Pensando..."
+            document.getElementById('contactForm').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            
             
             const formData = {
                 name: document.getElementById('name').value,
@@ -50,20 +131,28 @@
                 }
                 return response.json(); // Convertir la respuesta a JSON
             })
+
             .then(data => {
                 console.log(data); // Inspeccionar la respuesta
                 // Reemplazar "\\n" con saltos de línea reales en HTML
                 const analysisWithLineBreaks = data.analysis.replace(/\\n/g, '<br>');
+                // Ocultar "Pensando..." y mostrar la respuesta
+                document.getElementById('loading').style.display = 'none';
                 // Mostrar la respuesta generada por ChatGPT
                 document.getElementById('response').innerHTML = `
                     <h2>Gracias, ${formData.name}!</h2>
                     <p>${data.analysis}</p>
                     <p>Nos pondremos en contacto contigo para conversar sobre automatizaciones.</p>
                 `;
+                document.getElementById('response').style.display = 'block';
             })
+            })
+
             .catch(error => {
                 console.error('Error:', error);
+                document.getElementById('loading').style.display = 'none';
                 document.getElementById('response').innerText = 'Hubo un error al procesar tu solicitud.';
+                document.getElementById('response').style.display = 'block';
             });
         });
     </script>
