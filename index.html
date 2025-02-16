@@ -89,8 +89,8 @@
         <form id="contactForm">
             <input type="text" id="name" name="name" placeholder="Nombre" required><br><br>
             <input type="email" id="email" name="email" placeholder="Correo electrónico" required><br><br>
-            <label for="telegram">Si quieres recibir un mensaje por Telegram, déjame tu número</label>
-            <input type="text" id="telegram" name="telegram" placeholder="Número de Telegram (opcional)">
+            <!-- label for="telegram">Si quieres recibir un mensaje por Telegram, déjame tu número</label>
+            <input type="text" id="telegram" name="telegram" placeholder="Número de Telegram (opcional)"-->
             <textarea id="message" name="message" placeholder="Cuéntame sobre tu trabajo" required></textarea>
             <button type="submit">Enviar</button>
         </form>
@@ -109,7 +109,7 @@
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
-                telegram: document.getElementById('telegram').value,
+                //telegram: document.getElementById('telegram').value,
                 message: document.getElementById('message').value
             };
 
