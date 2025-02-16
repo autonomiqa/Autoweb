@@ -114,7 +114,7 @@
             <input type="email" id="email" name="email" placeholder="Correo electrónico" required><br>
             <div class="error-message" id="email-error"></div>
             <input type="tel" id="phone" name="phone" placeholder="Teléfono móvil de contacto (opcional)"><br><br>
-            <textarea id="message" name="message" placeholder="Cuéntame sobre tu trabajo (mínimo 70 caracteres)" required minlength="70"></textarea>
+            <textarea id="message" name="message" placeholder="Cuéntame sobre tu trabajo (mínimo 50 caracteres, unas 6 a 8 palabras)" required minlength="70"></textarea>
             <div class="error-message" id="message-error"></div>
             <button type="submit">Enviar</button>
         </form>
@@ -142,7 +142,7 @@
             // Validar longitud del mensaje
             const message = document.getElementById('message').value;
             if (message.length < 50) {
-                document.getElementById('message-error').innerText = 'El mensaje debe tener al menos 50 caracteres.';
+                document.getElementById('message-error').innerText = '¿Me ayudarías con escribir al menos 50 caracteres? Unas 6-8 palabras';
                 return;
             }
 
