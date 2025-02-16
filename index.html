@@ -52,6 +52,8 @@
             })
             .then(data => {
                 console.log(data); // Inspeccionar la respuesta
+                // Reemplazar "\\n" con saltos de línea reales en HTML
+                const analysisWithLineBreaks = data.analysis.replace(/\\n/g, '<br>');
                 // Mostrar la respuesta generada por ChatGPT
                 document.getElementById('response').innerHTML = `
                     <h2>Gracias, ${formData.name}!</h2>
