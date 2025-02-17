@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Tramas para Juegos de Rol</title>
+    <style>
+        body {
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ff8c42;
+            border-radius: 5px;
+
+            font-size: 1rem;
+            background-color: #fff3e6;
+            outline: none;
+            box-sizing: border-box; /* Asegura que el padding y el borde no aumenten el tamaño total */
+        }
+            input:focus, textarea:focus {
+            border-color: #ff6f00;
+        }
+        button {
+            padding: 0.75rem 1.5rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff6f00;
+        }
+        /* Título */
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Generador de Tramas para Juegos de Rol</h1>
+
+<form id="tramaForm">
+    <div class="form-group">
+        <label for="director">Nombre del director del juego (obligatorio):</label>
+        <input type="text" id="director" name="director" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Correo electrónico (obligatorio):</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+        <label for="juego">Juego de Rol:</label>
+        <select id="juego" name="juego" required>
+            <option value="Calabozos y Dragones">Calabozos y Dragones</option>
+            <option value="La llamada de Cthulhu">La llamada de Cthulhu</option>
+            <option value="Vampiro: La Mascarada">Vampiro: La Mascarada</option>
+            <option value="Cyberpunk Red">Cyberpunk Red</option>
+            <option value="Pathfinder">Pathfinder</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="nivel">Nivel del personaje:</label>
+        <input type="number" id="nivel" name="nivel" required>
+    </div>
+
+    <div class="form-group">
+        <label>Tipo de juego:</label>
+        <label><input type="radio" name="tipo" value="One-shot" required> One-shot (aventura corta autoconclusiva)</label>
+        <label><input type="radio" name="tipo" value="Campaña"> Campaña (historia extendida con múltiples sesiones)</label>
+    </div>
+
+    <div class="form-group">
+        <label for="tono">Tono de la historia:</label>
+        <select id="tono" name="tono" required>
+            <option value="Épico">Épico</option>
+            <option value="Terror">Terror</option>
+            <option value="Investigación">Investigación</option>
+            <option value="Comedia">Comedia</option>
+            <option value="Oscuro">Oscuro</option>
+            <option value="Heroico">Heroico</option>
+            <option value="Otro">Otro (especificar)</option>
+        </select>
+        <input type="text" id="tono_otro" name="tono_otro" placeholder="Especificar otro tono" style="display: none;">
+    </div>
+
+    <div class="form-group">
+        <label for="escenario">Escenario o ambientación:</label>
+        <select id="escenario" name="escenario" required>
+            <option value="Fantasía medieval">Fantasía medieval</option>
+            <option value="Cyberpunk">Cyberpunk</option>
+            <option value="Ciencia ficción">Ciencia ficción</option>
+            <option value="Horror">Horror</option>
+            <option value="Steampunk">Steampunk</option>
+            <option value="Postapocalíptico">Postapocalíptico</option>
+            <option value="Otro">Otro (especificar)</option>
+        </select>
+        <input type="text" id="escenario_otro" name="escenario_otro" placeholder="Especificar otro escenario" style="display: none;">
+    </div>
+
+    <div class="form-group">
+        <label for="giro">Giro de la trama:</label>
+        <textarea id="giro" name="giro" rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="restricciones">Restricciones o requisitos especiales:</label>
+        <textarea id="restricciones" name="restricciones" rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="notas">Notas adicionales:</label>
+        <textarea id="notas" name="notas" rows="4"></textarea>
+    </div>
+
+    <button type="submit">Generar Trama</button>
+</form>
+
+<script>
+    document.getElementById('tono').addEventListener('change', function() {
+        var otroTono = document.getElementById('tono_otro');
+        otroTono.style.display = this.value === 'Otro' ? 'block' : 'none';
+    });
+
+    document.getElementById('escenario').addEventListener('change', function() {
+        var otroEscenario = document.getElementById('escenario_otro');
+        otroEscenario.style.display = this.value === 'Otro' ? 'block' : 'none';
+    });
+
+    document.getElementById('tramaForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = {
+            director: document.getElementById('director').value,
+            email: document.getElementById('email').value,
+            juego: document.getElementById('juego').value,
+            nivel: document.getElementById('nivel').value,
+            tipo: document.querySelector('input[name="tipo"]:checked').value,
+            tono: document.getElementById('tono').value === 'Otro' ? document.getElementById('tono_otro').value : document.getElementById('tono').value,
+            escenario: document.getElementById('escenario').value === 'Otro' ? document.getElementById('escenario_otro').value : document.getElementById('escenario').value,
+            giro: document.getElementById('giro').value,
+            restricciones: document.getElementById('restricciones').value,
+            notas: document.getElementById('notas').value
+        };
+
+        fetch('https://hook.us2.make.com/aquhoxqdq34jko6dbkqed8vqqld89tjn', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Trama generada con éxito! Revisa tu correo electrónico.');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Hubo un error al generar la trama. Por favor, inténtalo de nuevo.');
+        });
+    });
+</script>
+
+</body>
+</html>
