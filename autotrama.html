@@ -11,10 +11,11 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-
+            flex-direction: column; /* Cambia la dirección del flex a columna */
+            justify-content: flex-start; /* Alinea el contenido al inicio */
+            align-items: center; /* Centra horizontalmente */
+            min-height: 100vh; /* Asegura que el body ocupe al menos el 100% de la altura de la ventana */
+            padding-top: 2rem; /* Espacio arriba para el título */
         }
         .form-group {
             margin-bottom: 15px;
@@ -29,13 +30,12 @@
             margin-bottom: 1rem;
             border: 2px solid #ff8c42;
             border-radius: 5px;
-
             font-size: 1rem;
             background-color: #fff3e6;
             outline: none;
             box-sizing: border-box; /* Asegura que el padding y el borde no aumenten el tamaño total */
         }
-            input:focus, textarea:focus {
+        input:focus, textarea:focus {
             border-color: #ff6f00;
         }
         button {
@@ -56,12 +56,23 @@
             font-size: 2rem;
             color: #333;
             margin-bottom: 1.5rem;
+            text-align: center; /* Centra el texto del título */
         }
 
         h4 {
             font-size: 1.25rem;
             color: #555;
             margin-bottom: 1.5rem;
+        }
+
+        /* Contenedor del formulario */
+        form {
+            width: 100%;
+            max-width: 600px; /* Limita el ancho del formulario */
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
