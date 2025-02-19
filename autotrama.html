@@ -98,7 +98,7 @@
 </head>
 <body>
 
-<h1>Generador de Tramas para Juegos de Rol v1.2</h1>
+<h1>Generador de Tramas para Juegos de Rol v1.3</h1>
 
 <form id="tramaForm">
     <div class="form-group">
@@ -197,14 +197,14 @@
         event.preventDefault();
 
         // validar campos Otro
-        const tono: document.getElementById('tono').value === 'Otro' ? document.getElementById('tono_otro').value : document.getElementById('tono').value,
-        const escenario: document.getElementById('escenario').value === 'Otro' ? document.getElementById('escenario_otro').value : document.getElementById('escenario').value,
-        if (document.getElementById('tono').value === 'Otro' && !tono.trim()) {
+        const tono = document.getElementById('tono').value === 'Otro' ? document.getElementById('tono_otro').value : document.getElementById('tono').value;
+        const escenario = document.getElementById('escenario').value === 'Otro' ? document.getElementById('escenario_otro').value : document.getElementById('escenario').value;
+        if (document.getElementById('tono').value === 'Otro' && !document.getElementById('tono_otro').value.trim()) {
             alert('Por favor, especifica el tono de la historia.');
             return;
         }
 
-        if (document.getElementById('escenario').value === 'Otro' && !escenario.trim()) {
+        if (document.getElementById('escenario').value === 'Otro' && !document.getElementById('escenario_otro').value.trim()) {
             alert('Por favor, especifica el escenario o ambientación.');
             return;
         }
