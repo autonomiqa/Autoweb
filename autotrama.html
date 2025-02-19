@@ -228,9 +228,6 @@
 
         const submitButton = document.querySelector('button[type="submit"]');
         submitButton.disabled = true; // Deshabilitar el botón al enviar
-
-        // Limpiar el formulario después de enviar
-        document.getElementById('tramaForm').reset();
         
         fetch('https://hook.us2.make.com/aquhoxqdq34jko6dbkqed8vqqld89tjn', {
             method: 'POST',
@@ -263,6 +260,10 @@
                 <p>Hubo un error al generar la trama. Por favor, inténtalo de nuevo.</p>
             `;
             document.getElementById('response').style.display = 'block';
+
+        // Limpiar el formulario después de enviar
+        document.getElementById('tramaForm').reset();
+            
         });
     });
 </script>
