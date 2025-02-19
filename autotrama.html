@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Tramas para Juegos de Rol</title>
     <style>
+        /* Estilos generales */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f9f9f9;
@@ -17,12 +18,34 @@
             min-height: 100vh; /* Asegura que el body ocupe al menos el 100% de la altura de la ventana */
             padding-top: 2rem; /* Espacio arriba para el título */
         }
+        /* Título */
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: center; /* Centra el texto del título */
+        }
+        h4 {
+            font-size: 1.25rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+        /* Contenedor del formulario */
+        form {
+            width: 100%;
+            max-width: 600px; /* Limita el ancho del formulario */
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
         .form-group {
             margin-bottom: 15px;
         }
         label {
             display: block;
             margin-bottom: 5px;
+            font-weight: bold;
         }
         input, select, textarea {
             width: 100%;
@@ -39,6 +62,7 @@
             border-color: #ff6f00;
         }
         button {
+            /* width: 100% */
             padding: 0.75rem 1.5rem;
             background-color: #4CAF50;
             color: white;
@@ -51,35 +75,12 @@
         button:hover {
             background-color: #ff6f00;
         }
-        /* Título */
-        h1 {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 1.5rem;
-            text-align: center; /* Centra el texto del título */
-        }
-
-        h4 {
-            font-size: 1.25rem;
-            color: #555;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Contenedor del formulario */
-        form {
-            width: 100%;
-            max-width: 600px; /* Limita el ancho del formulario */
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
         /* Controlador de "Pensando" */
         .loading {
             display: none;
             font-size: 1.5rem;
             color: #333;
+            text-align: center;
         }
 
         /* Respuesta */
@@ -92,13 +93,38 @@
             padding: 1rem;
             border-radius: 5px;
             border: 1px solid #ff8c42;
+            text-align: center;
         }
+        /* Estilos para pantallas pequeñas (móviles) */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem; /* Título más pequeño en móviles */
+            }
 
+            form {
+                padding: 1rem; /* Menos padding en móviles */
+            }
+
+            input, select, textarea {
+                font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+                padding: 0.5rem; /* Menos padding en los campos */
+            }
+
+            button {
+                font-size: 0.9rem; /* Tamaño de fuente más pequeño en el botón */
+                padding: 0.5rem 1rem; /* Menos padding en el botón */
+            }
+
+            .loading, .response {
+                font-size: 1rem; /* Tamaño de fuente más pequeño para mensajes */
+            }
+        }
     </style>
 </head>
 <body>
 
-<h1>Generador de Tramas para Juegos de Rol v1.3</h1>
+<h1>Generador de Tramas para Juegos de Rol</h1>
+<h4>v 1.4</h4>
 
 <form id="tramaForm">
     <div class="form-group">
