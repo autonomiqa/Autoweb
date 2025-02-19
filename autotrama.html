@@ -74,6 +74,26 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+        /* Controlador de "Pensando" */
+        .loading {
+            display: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        /* Respuesta */
+        .response {
+            display: none;
+            font-size: 1.25rem;
+            color: #333;
+            margin-top: 1.5rem;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ff8c42;
+        }
+
     </style>
 </head>
 <body>
@@ -159,6 +179,9 @@
     <button type="submit">Generar Trama</button>
 </form>
 
+<div class="loading" id="loading">Pensando...</div>
+<div class="response" id="response"></div>
+
 <script>
     document.getElementById('tono').addEventListener('change', function() {
         var otroTono = document.getElementById('tono_otro');
@@ -173,14 +196,31 @@
     document.getElementById('tramaForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
+        // validar campos Otro
+        const tono: document.getElementById('tono').value === 'Otro' ? document.getElementById('tono_otro').value : document.getElementById('tono').value,
+        const escenario: document.getElementById('escenario').value === 'Otro' ? document.getElementById('escenario_otro').value : document.getElementById('escenario').value,
+        if (document.getElementById('tono').value === 'Otro' && !tono.trim()) {
+            alert('Por favor, especifica el tono de la historia.');
+            return;
+        }
+
+        if (document.getElementById('escenario').value === 'Otro' && !escenario.trim()) {
+            alert('Por favor, especifica el escenario o ambientación.');
+            return;
+        }
+
+        // Ocultar el formulario y mostrar "Pensando..."
+        document.getElementById('tramaForm').style.display = 'none';
+        document.getElementById('loading').style.display = 'block';
+
         const formData = {
             director: document.getElementById('director').value,
             email: document.getElementById('email').value,
             juego: document.getElementById('juego').value,
             nivel: document.getElementById('nivel').value,
             tipo: document.querySelector('input[name="tipo"]:checked').value,
-            tono: document.getElementById('tono').value === 'Otro' ? document.getElementById('tono_otro').value : document.getElementById('tono').value,
-            escenario: document.getElementById('escenario').value === 'Otro' ? document.getElementById('escenario_otro').value : document.getElementById('escenario').value,
+            tono: tono,
+            escenario: escenario,
             giro: document.getElementById('giro').value,
             restricciones: document.getElementById('restricciones').value,
             notas: document.getElementById('notas').value
@@ -195,11 +235,25 @@
         })
         .then(response => response.json())
         .then(data => {
-            alert('Trama generada con éxito! Revisa tu correo electrónico.');
+            // Ocultar "Pensando..." y mostrar la respuesta
+            document.getElementById('loading').style.display = 'none';
+            // Mostrar la respuesta generada por ChatGPT
+            document.getElementById('response').innerHTML = `
+                <h2>¡Gracias, ${formData.director}!</h2>
+                <p>¡Trama generada con éxito! Revisa tu correo electrónico.</p>
+            `;
+            document.getElementById('response').style.display = 'block';
+            /*alert('Trama generada con éxito! Revisa tu correo electrónico.');*/
         })
         .catch((error) => {
             console.error('Error:', error);
-            alert('Hubo un error al generar la trama. Por favor, inténtalo de nuevo.');
+            /*alert('Hubo un error al generar la trama. Por favor, inténtalo de nuevo.');*/
+            document.getElementById('loading').style.display = 'none'; // Ocultar "Pensando..."
+            document.getElementById('response').innerHTML = `
+                <h2>Error</h2>
+                <p>Hubo un error al generar la trama. Por favor, inténtalo de nuevo.</p>
+            `;
+            document.getElementById('response').style.display = 'block';
         });
     });
 </script>
