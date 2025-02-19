@@ -187,7 +187,7 @@
         var otroTono = document.getElementById('tono_otro');
         otroTono.style.display = this.value === 'Otro' ? 'block' : 'none';
     });
-
+    
     document.getElementById('escenario').addEventListener('change', function() {
         var otroEscenario = document.getElementById('escenario_otro');
         otroEscenario.style.display = this.value === 'Otro' ? 'block' : 'none';
@@ -226,6 +226,12 @@
             notas: document.getElementById('notas').value
         };
 
+        const submitButton = document.querySelector('button[type="submit"]');
+        submitButton.disabled = true; // Deshabilitar el botón al enviar
+
+        // Limpiar el formulario después de enviar
+        document.getElementById('tramaForm').reset();
+        
         fetch('https://hook.us2.make.com/aquhoxqdq34jko6dbkqed8vqqld89tjn', {
             method: 'POST',
             headers: {
@@ -246,6 +252,9 @@
             /*alert('Trama generada con éxito! Revisa tu correo electrónico.');*/
         })
         .catch((error) => {
+            // Habilitar el botón en caso de error
+            submitButton.disabled = false;
+            // Resto del código
             console.error('Error:', error);
             /*alert('Hubo un error al generar la trama. Por favor, inténtalo de nuevo.');*/
             document.getElementById('loading').style.display = 'none'; // Ocultar "Pensando..."
