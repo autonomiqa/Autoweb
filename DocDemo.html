@@ -6,12 +6,18 @@
     <title>Demo organización y validación de documentos</title>
 </head>
 <body>
-    <h1>Control de Procesamiento de Documentos v1.3</h1>
+    <h1>Control de Procesamiento de Documentos v1.4</h1>
     <button id="iniciarBtn">Iniciar Procesamiento</button>
     <div id="mensajes"></div>
 
     <script>
         document.getElementById('iniciarBtn').addEventListener('click', function() {
+            // Ocultar el botón y mostrar el mensaje "En ejecución, por favor, espere..."
+            var boton = document.getElementById('iniciarBtn');
+            boton.style.display = 'none';
+            document.getElementById('mensajes').innerText = "En ejecución, por favor, espere...";
+
+            // Enviar la solicitud al webhook de Make.com
             fetch('https://hook.us2.make.com/9axvvxo6htd65avqo8yd0tt2t41hygko', {
                 method: 'POST',
                 headers: {
@@ -21,10 +27,14 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('mensajes').innerText = "Procesamiento iniciado...";
+                // Cuando el escenario finalice, mostrar el enlace "Volver al botón"
+                document.getElementById('mensajes').innerHTML = "Procesamiento completado correctamente.<br><a href='https://autonomiqa.github.io/Autoweb/DocDemo.html'>Volver al botón</a>";
             })
             .catch(error => {
                 console.error('Error:', error);
+                // En caso de error, mostrar un mensaje de error y volver a mostrar el botón
+                document.getElementById('mensajes').innerText = "Error en el procesamiento. Inténtelo de nuevo.";
+                boton.style.display = 'block';
             });
         });
 
