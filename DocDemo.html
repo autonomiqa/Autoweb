@@ -27,6 +27,22 @@
                 console.error('Error:', error);
             });
         });
+
+        // Función para recibir actualizaciones
+        function recibirActualizaciones() {
+            fetch('https://hook.us2.make.com/9axvvxo6htd65avqo8yd0tt2t41hygko')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('mensajes').innerText += "\n" + data.mensaje;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        
+        // Revisar actualizaciones cada 5 segundos
+        setInterval(recibirActualizaciones, 5000);
+        
     </script>
 </body>
 </html>
